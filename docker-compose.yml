@@ -1,0 +1,18 @@
+# ROS 2 Jazzy + Gazebo + RViz2 as a Linux desktop in your browser.
+#   docker compose up -d --build     then open http://localhost:6080
+# Runs on Apple Silicon (arm64). Rendering is software-only, so Gazebo is slow:
+# use density:=low first and expect a real-time factor below 1.
+services:
+  ros:
+    build: ./docker
+    container_name: ros2_jazzy_adaptive
+    ports:
+      - "6080:80"
+    shm_size: "2gb"
+    security_opt:
+      - seccomp:unconfined
+    environment:
+      - LIBGL_ALWAYS_SOFTWARE=1
+    volumes:
+      - ./ros2_ws:/home/ubuntu/ros2_ws
+      - ./python_sim:/home/ubuntu/python_sim

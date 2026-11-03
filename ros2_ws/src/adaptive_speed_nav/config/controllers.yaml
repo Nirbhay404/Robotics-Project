@@ -1,0 +1,28 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 100
+    use_sim_time: true
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    diff_drive_controller:
+      type: diff_drive_controller/DiffDriveController
+
+diff_drive_controller:
+  ros__parameters:
+    left_wheel_names:
+      - left_wheel_joint
+    right_wheel_names:
+      - right_wheel_joint
+    wheel_separation: 0.45   # must match URDF
+    wheel_radius: 0.10       # must match URDF
+    publish_rate: 50.0
+    base_frame_id: base_link
+    odom_frame_id: odom
+    enable_odom_tf: true
+    # speed limits so a bad command cannot exceed the robot's capability
+    linear.x.max_velocity: 1.2
+    linear.x.min_velocity: -0.3
+    angular.z.max_velocity: 1.6
+    angular.z.min_velocity: -1.6
